@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+
+    <property name="LOGGER_PATH" value="D:/InteraIT/Mazda Project/Logs"/>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <appender name="SIZE_AND_TIME_BASED_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGGER_PATH}/MFPDealerList.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss} %relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+            </Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover -->
+            <fileNamePattern>${LOGGER_PATH}/archived/MFPDealerList.%d{yyyy-MM-dd}.%i.log
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>5MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+    </appender>
+
+    <logger name="org.mfp.poc.dealerlist" level="info,debug" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="SIZE_AND_TIME_BASED_FILE"/>
+    </logger>
+
+</configuration>
